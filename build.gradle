@@ -2,8 +2,6 @@ plugins {
     id "org.danilopianini.build-commons" version "0.1.8"
 }
 
-//group "${groupId}"
-
 dependencies {
     testCompile "junit:junit:${junitVersion}"
     testCompile "commons-io:commons-io:${commonsIOVersion}"
