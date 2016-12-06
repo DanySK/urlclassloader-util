@@ -86,6 +86,8 @@ public final class URLClassLoaderUtil {
      *            the url
      * @param cl
      *            the target classloader
+     * @throws IllegalStateException
+     *             if the String can not be translated to a valid URL
      */
     public static void addFirst(final String url, final ClassLoader cl) {
         addFirst(toURL(url), cl);
@@ -96,15 +98,31 @@ public final class URLClassLoaderUtil {
      * 
      * @param url
      *            the url
+     * @throws IllegalStateException
+     *             if the String can not be translated to a valid URL
      */
     public static void addFirst(final String url) {
         addFirst(toURL(url));
     }
 
+    /**
+     * Adds the provided File as first entry in the provided classloader.
+     * 
+     * @param file
+     *            the url
+     * @param cl
+     *            the target classloader
+     */
     public static void addFirst(final File file, final ClassLoader cl) {
         addFirst(toURL(file), cl);
     }
 
+    /**
+     * Adds the provided File as first entry in {@link ClassLoader#getSystemClassLoader()}.
+     * 
+     * @param file
+     *            the url
+     */
     public static void addFirst(final File file) {
         addFirst(toURL(file));
     }
