@@ -1,0 +1,24 @@
+plugins {
+  id "org.danilopianini.build-commons" version "0.1.8"
+}
+
+dependencies {
+    testCompile "junit:junit:${junitVersion}"
+    testCompile "commons-io:commons-io:${commonsIOVersion}"
+}
+
+uploadArchives {
+    repositories {
+        mavenDeployer {
+            pom.project {
+                developers {
+                    developer {
+                            name 'Danilo Pianini'
+                            email 'danilo.pianini@gmail.com'
+                            url 'http://www.danilopianini.org/'
+                    }
+                }
+            }
+        }
+    }
+}

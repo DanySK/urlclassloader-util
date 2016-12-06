@@ -1,0 +1,8 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<pmd>
+    <useProjectRuleSet>true</useProjectRuleSet>
+    <ruleSetFile>urlclassloader-util/pmd.xml</ruleSetFile>
+    <includeDerivedFiles>true</includeDerivedFiles>
+    <violationsAsErrors>false</violationsAsErrors>
+    <fullBuildEnabled>true</fullBuildEnabled>
+</pmd>
