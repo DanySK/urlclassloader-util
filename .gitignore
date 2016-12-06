@@ -1,3 +1,5 @@
 /.gradle/
 /bin/
 version.info
+prepare_environment.sh
+build/
