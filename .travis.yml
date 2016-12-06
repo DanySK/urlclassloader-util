@@ -1,9 +1,6 @@
 language: java
 jdk:
   - oraclejdk8
-before_install:
-  - openssl aes-256-cbc -K $encrypted_1918c4c7167d_key -iv $encrypted_1918c4c7167d_iv -in prepare_environment.sh.enc -out prepare_environment.sh -d
-  - sh prepare_environment.sh 
 env:
   global:
     - secure: "rBasR0Zf/G1cCSw6OFTTUPAjhSyoRo0BraMttbsqS89oHmKIPxN11l11ug0ye19R56EgzQQciQRQD6SvRyo0htemF7MTPNeV98ThniQc8O63txG2yuQVAgNHmXPkjVRY/HYCSv98RvwvphKP0EwHTkLBJGBzEURW/6L1G5Ou/wgadUXzz+32YERe3LULrlxFEZdXl/yNBiZyLC3sFoLzfnXfgX8akyTOD5VrWz9rLFF6QQlv1u1Ra0OXoG4Ezw5x/Ji3+m1D6UHYIajvMViuS92QWBJaGCuVfe8Enqc43mvvfRox33D2g4HYF68YOfUuX66WbN1k6F/G3C4dXpqElWeYF2j1xlcgSojFlRX9+1frJ4UENZl+N58+0Juxwi8DsL251KLRSQOBffVEvJ030fnVSiFBmfJnk524360Y3SSCZiRN115e/rhKkRoTg4oiCWuz2nezngftHCrWQgWvCv6NTeqIa2mv0/MpppLk1dyWST7oLfQTCDa9rF86Z+W9bTyWiw7Uc4AqpbHwjwwsgG+IYQ0EjLW8Zwoidb3UqLqQUva/Su1+n6T7AP/406/ymPkX7l4IBUwGoRqKStdVlZIbTst2lNbiek899UFRVQg3QLBIljoHgsM92EA9Y1ErXu0i2UgQdt7Qmg9b9IZStvCf0R9+iu3CGVOOBcposfU="
