@@ -1,6 +1,8 @@
 plugins {
-  id "org.danilopianini.build-commons" version "0.1.8"
+    id "org.danilopianini.build-commons" version "0.1.8"
 }
+
+//group "${groupId}"
 
 dependencies {
     testCompile "junit:junit:${junitVersion}"
@@ -13,9 +15,9 @@ uploadArchives {
             pom.project {
                 developers {
                     developer {
-                            name 'Danilo Pianini'
-                            email 'danilo.pianini@gmail.com'
-                            url 'http://www.danilopianini.org/'
+                        name 'Danilo Pianini'
+                        email 'danilo.pianini@gmail.com'
+                        url 'http://www.danilopianini.org'
                     }
                 }
             }
