@@ -121,12 +121,20 @@ public final class URLClassLoaderUtil {
      * Adds the provided File as first entry in {@link ClassLoader#getSystemClassLoader()}.
      * 
      * @param file
-     *            the url
+     *            the {@link URL}
      */
     public static void addFirst(final File file) {
         addFirst(toURL(file));
     }
 
+    /**
+     * Adds the provided File as last entry in the provided {@link ClassLoader}.
+     * 
+     * @param url
+     *            the {@link URL}
+     * @param cl
+     *            the {@link ClassLoader}
+     */
     public static void addLast(final URL url, final ClassLoader cl) {
         doOn(new Op() {
             @Override
@@ -142,14 +150,34 @@ public final class URLClassLoaderUtil {
         }, cl);
     }
 
+    /**
+     * Adds the provided File as last entry in {@link ClassLoader#getSystemClassLoader()}.
+     * 
+     * @param url
+     *            the {@link URL}
+     */
     public static void addLast(final URL url) {
         addLast(url, ClassLoader.getSystemClassLoader());
     }
 
+    /**
+     * Adds the provided File as last entry in the provided {@link ClassLoader}.
+     * 
+     * @param uri
+     *            the {@link URI}
+     * @param cl
+     *            the {@link ClassLoader}
+     */
     public static void addLast(final URI uri, final ClassLoader cl) {
         addLast(toURL(uri), cl);
     }
 
+    /**
+     * Adds the provided File as last entry in {@link ClassLoader#getSystemClassLoader()}.
+     * 
+     * @param uri
+     *            the {@link URI}
+     */
     public static void addLast(final URI uri) {
         addLast(toURL(uri));
     }
