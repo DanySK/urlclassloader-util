@@ -121,12 +121,20 @@ public final class URLClassLoaderUtil {
      * Adds the provided File as first entry in {@link ClassLoader#getSystemClassLoader()}.
      * 
      * @param file
-     *            the url
+     *            the {@link URL}
      */
     public static void addFirst(final File file) {
         addFirst(toURL(file));
     }
 
+    /**
+     * Adds the provided URL as last entry in the provided {@link ClassLoader}.
+     * 
+     * @param url
+     *            the {@link URL}
+     * @param cl
+     *            the {@link ClassLoader}
+     */
     public static void addLast(final URL url, final ClassLoader cl) {
         doOn(new Op() {
             @Override
@@ -142,34 +150,80 @@ public final class URLClassLoaderUtil {
         }, cl);
     }
 
+    /**
+     * Adds the provided File as last entry in {@link ClassLoader#getSystemClassLoader()}.
+     * 
+     * @param url
+     *            the {@link URL}
+     */
     public static void addLast(final URL url) {
         addLast(url, ClassLoader.getSystemClassLoader());
     }
 
+    /**
+     * Adds the provided File as last entry in the provided {@link ClassLoader}.
+     * 
+     * @param uri
+     *            the {@link URI}
+     * @param cl
+     *            the {@link ClassLoader}
+     */
     public static void addLast(final URI uri, final ClassLoader cl) {
         addLast(toURL(uri), cl);
     }
 
+    /**
+     * Adds the provided File as last entry in {@link ClassLoader#getSystemClassLoader()}.
+     * 
+     * @param uri
+     *            the {@link URI}
+     */
     public static void addLast(final URI uri) {
         addLast(toURL(uri));
     }
 
+    /**
+     * @param url
+     *            the {@link URL}
+     * @param cl
+     *            the {@link ClassLoader}
+     */
     public static void addLast(final String url, final ClassLoader cl) {
         addLast(toURL(url), cl);
     }
 
+    /**
+     * @param url
+     *            the {@link URL}
+     */
     public static void addLast(final String url) {
         addLast(toURL(url));
     }
 
+    /**
+     * @param file
+     *            the url
+     * @param cl
+     *            the target classloader
+     */
     public static void addLast(final File file, final ClassLoader cl) {
         addLast(toURL(file), cl);
     }
 
+    /**
+     * @param file
+     *            the url
+     */
     public static void addLast(final File file) {
         addLast(toURL(file));
     }
 
+    /**
+     * @param url
+     *            the {@link URL}
+     * @param cl
+     *            the {@link ClassLoader}
+     */
     public static void remove(final URL url, final ClassLoader cl) {
         doOn(new OpOnLists() {
             @Override
@@ -208,7 +262,7 @@ public final class URLClassLoaderUtil {
                         target.setAccessible(true);
                         if (target.invoke(loader).equals(url)) {
                             it.remove();
-                            System.out.println(lmap.values().remove(loader));
+                            lmap.values().remove(loader);
                         }
                     }
                 } catch (NoSuchFieldException | SecurityException | IllegalArgumentException | IllegalAccessException | InvocationTargetException e) {
@@ -218,37 +272,71 @@ public final class URLClassLoaderUtil {
         }, cl);
     }
 
+    /**
+     * @param url
+     *            the {@link URL}
+     */
     public static void remove(final URL url) {
         remove(url, ClassLoader.getSystemClassLoader());
     }
 
+    /**
+     * @param uri
+     *            the {@link URI}
+     * @param cl
+     *            the {@link ClassLoader}
+     */
     public static void remove(final URI uri, final ClassLoader cl) {
         remove(toURL(uri), cl);
     }
 
+    /**
+     * @param uri
+     *            the {@link URI}
+     */
     public static void remove(final URI uri) {
         remove(toURL(uri));
     }
 
+    /**
+     * @param url
+     *            the {@link URL}
+     * @param cl
+     *            the {@link ClassLoader}
+     */
     public static void remove(final String url, final ClassLoader cl) {
         remove(toURL(url), cl);
     }
 
+    /**
+     * @param url
+     *            the {@link URL}
+     */
     public static void remove(final String url) {
         remove(toURL(url));
     }
 
+    /**
+     * @param file
+     *            the url
+     * @param cl
+     *            the target classloader
+     */
     public static void remove(final File file, final ClassLoader cl) {
         remove(toURL(file), cl);
     }
 
+    /**
+     * @param file
+     *            the url
+     */
     public static void remove(final File file) {
         remove(toURL(file));
     }
 
     private static void doOn(final Op operation, final ClassLoader loader) {
         try {
-            for (Class<?> clazz = Objects.requireNonNull(loader).getClass(); !Object.class.equals(clazz); clazz = clazz.getSuperclass()){
+            for (Class<?> clazz = Objects.requireNonNull(loader).getClass(); !Object.class.equals(clazz); clazz = clazz.getSuperclass()) {
                 for (final Field potentialURLClasspath : clazz.getDeclaredFields()) {
                     if (URLClassPath.class.isAssignableFrom(potentialURLClasspath.getType())) {
                         potentialURLClasspath.setAccessible(true);
@@ -289,7 +377,7 @@ public final class URLClassLoaderUtil {
                 if (!Modifier.isStatic(potentialURLList.getModifiers()) && List.class.isAssignableFrom(potentialURLList.getType())) {
                     potentialURLList.setAccessible(true);
                     try {
-                        List<?> theList = (List<?>) potentialURLList.get(cl);
+                        final List<?> theList = (List<?>) potentialURLList.get(cl);
                         if (theList.isEmpty() || theList.get(0) instanceof URL) {
                             /*
                              * This is most likely one of our targets

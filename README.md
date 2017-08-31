@@ -6,7 +6,11 @@ Utilities for manipulating `sun.misc.URLClassLoader`s
 
 ### Stable branch
 
+[![Build Status](https://travis-ci.org/DanySK/urlclassloader-util.svg?branch=master)](https://travis-ci.org/DanySK/urlclassloader-util)
+
 ### Development branch
+
+[![Build Status](https://travis-ci.org/DanySK/urlclassloader-util.svg?branch=develop)](https://travis-ci.org/DanySK/urlclassloader-util)
 
 ## Usage
 
