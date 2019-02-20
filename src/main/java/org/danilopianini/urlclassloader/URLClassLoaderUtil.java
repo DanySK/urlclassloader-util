@@ -1,19 +1,23 @@
 package org.danilopianini.urlclassloader;
 
 import java.io.File;
+import java.io.IOException;
 import java.lang.reflect.Field;
 import java.lang.reflect.InvocationTargetException;
 import java.lang.reflect.Method;
 import java.lang.reflect.Modifier;
+import java.net.JarURLConnection;
 import java.net.MalformedURLException;
 import java.net.URI;
 import java.net.URL;
+import java.net.URLConnection;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
 import sun.misc.URLClassPath;
+import sun.net.www.protocol.file.FileURLConnection;
 
 /**
  * Utility to manipulate classpath. The implementation relies heavily on
@@ -284,12 +288,20 @@ public final class URLClassLoaderUtil {
                             throw new IllegalStateException("Could not find any getBaseURL() method");
                         }
                         target.setAccessible(true);
-                        if (target.invoke(loader).equals(url)) {
+                        URL clUrl = (URL)target.invoke(loader);
+                        if (clUrl.getProtocol().equals("jar")) {
+                            URLConnection urlConnection = clUrl.openConnection();
+                            if(urlConnection instanceof JarURLConnection) {
+                                JarURLConnection jarURLConnection = (JarURLConnection) urlConnection;
+                                clUrl = jarURLConnection.getJarFileURL();
+                            }
+                        }
+                        if (clUrl.equals(url)) {
                             it.remove();
                             lmap.values().remove(loader);
                         }
                     }
-                } catch (NoSuchFieldException | SecurityException | IllegalArgumentException | IllegalAccessException | InvocationTargetException e) {
+                } catch (NoSuchFieldException | SecurityException | IllegalArgumentException | IllegalAccessException | InvocationTargetException | IOException e) {
                     throw new IllegalStateException(e);
                 }
             }
