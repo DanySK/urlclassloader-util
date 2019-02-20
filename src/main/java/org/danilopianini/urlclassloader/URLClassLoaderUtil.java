@@ -27,6 +27,30 @@ public final class URLClassLoaderUtil {
     }
 
     /**
+     * List all URLS from the provided classloader.
+     *
+     * @param cl
+     *            the target classloader
+     */
+    public static URL[] list(final ClassLoader cl) {
+        try {
+            for (Class<?> clazz = Objects.requireNonNull(cl).getClass(); !Object.class.equals(clazz); clazz = clazz.getSuperclass()) {
+                for (final Field potentialURLClasspath : clazz.getDeclaredFields()) {
+                    if (URLClassPath.class.isAssignableFrom(potentialURLClasspath.getType())) {
+                        potentialURLClasspath.setAccessible(true);
+                        final URLClassPath urlClasspath = (URLClassPath) potentialURLClasspath.get(cl);
+                        return urlClasspath.getURLs();
+                    }
+                }
+            }
+        } catch (IllegalAccessException e) {
+            throw new IllegalStateException(e);
+        }
+
+        return new URL[0];
+    }
+
+    /**
      * Adds the provided URL as first entry in the provided classloader.
      * 
      * @param url
