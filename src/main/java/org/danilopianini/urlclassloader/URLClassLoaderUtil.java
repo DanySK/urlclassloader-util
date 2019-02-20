@@ -402,7 +402,7 @@ public final class URLClassLoaderUtil {
                     potentialURLList.setAccessible(true);
                     try {
                         final List<?> theList = (List<?>) potentialURLList.get(cl);
-                        if (theList.isEmpty() || theList.get(0) instanceof URL) {
+                        if (theList != null && (theList.isEmpty() || theList.get(0) instanceof URL)) {
                             /*
                              * This is most likely one of our targets
                              */
