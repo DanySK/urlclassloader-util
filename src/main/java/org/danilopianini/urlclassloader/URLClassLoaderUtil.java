@@ -50,7 +50,6 @@ public final class URLClassLoaderUtil {
         } catch (IllegalAccessException e) {
             throw new IllegalStateException(e);
         }
-
         return new URL[0];
     }
 
