@@ -288,10 +288,10 @@ public final class URLClassLoaderUtil {
                             throw new IllegalStateException("Could not find any getBaseURL() method");
                         }
                         target.setAccessible(true);
-                        URL clUrl = (URL)target.invoke(loader);
+                        URL clUrl = (URL) target.invoke(loader);
                         if (clUrl.getProtocol().equals("jar")) {
                             URLConnection urlConnection = clUrl.openConnection();
-                            if(urlConnection instanceof JarURLConnection) {
+                            if (urlConnection instanceof JarURLConnection) {
                                 JarURLConnection jarURLConnection = (JarURLConnection) urlConnection;
                                 clUrl = jarURLConnection.getJarFileURL();
                             }
